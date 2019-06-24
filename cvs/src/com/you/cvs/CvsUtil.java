@@ -68,8 +68,6 @@ public class CvsUtil {
             JOptionPane.showMessageDialog(null, "认证失败：请检查服务器是否可连接，或密码是否正确");
             return null;
         }
-
-
-        return null;
+        return "ok";
     }
 }
