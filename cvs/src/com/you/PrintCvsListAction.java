@@ -11,6 +11,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiFile;
 import com.intellij.ui.components.JBScrollPane;
 import com.you.cvs.CvsUtil;
+import com.you.cvs.ProcessUtil;
 import com.you.synth.SynthFrame;
 import com.you.utils.DateChooser;
 import com.you.utils.MyPanel;
@@ -27,6 +28,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -45,21 +47,24 @@ public class PrintCvsListAction extends AnAction implements DumbAwareRunnable {
     private static JFrame jFrame = null;
     private static MyPanel jPanel = null;
     private static JLabel cvsroot = null;
-    private static JTextField cvsrootFiled = null;
+    private static JTextField cvsrootField = null;
     private static JLabel projectPath = null;
-    private static JTextField projectPathFiled = null;
+    private static JTextField projectPathField = null;
     private static JLabel username = null;
-    private static JTextField usernameFiled = null;
+    private static JTextField usernameField = null;
+    private static JLabel password = null;
+    private static JTextField passwordField = null;
+    private static JButton login = null;
     private static JLabel date = null;
-    private static JTextField date1Filed = null;
-    private static JTextField date2Filed = null;
+    private static JTextField date1Field = null;
+    private static JTextField date2Field = null;
     private static JButton ok = null;
     private static JButton cancel = null;
     private static JScrollPane jScrollPane = null;
-    private static JPopupTextArear jPopupTextArearFiled = null;
+    private static JPopupTextArear jPopupTextArearField = null;
 
     private static final int FRAME_WIDTH = 550;
-    private static final int FRAME_HEIGHT = 600;
+    private static final int FRAME_HEIGHT = 650;
 
     @Override
     public void actionPerformed(AnActionEvent e) {
@@ -91,63 +96,95 @@ public class PrintCvsListAction extends AnAction implements DumbAwareRunnable {
 
             cvsroot = new JLabel("cvsroot");
             cvsroot.setBounds(80, 30, 100, 30);
-            cvsrootFiled = new JTextField("cvsroot");
-            cvsrootFiled.setBounds(80+100, 30, 300, 30);
+            cvsrootField = new JTextField("cvsroot");
+            cvsrootField.setBounds(80+100, 30, 300, 30);
 
             projectPath = new JLabel("projectPath");
             projectPath.setBounds(80, 30+50, 100, 30);
-            projectPathFiled = new JTextField("projectPath");
-            projectPathFiled.setBounds(80+100, 30+50, 300, 30);
+            projectPathField = new JTextField("projectPath");
+            projectPathField.setBounds(80+100, 30+50, 300, 30);
 
             username = new JLabel("用户名");
             username.setBounds(80, 30+100, 100, 30);
-            usernameFiled = new JTextField("username");
-            usernameFiled.setBounds(80+100, 30+100, 300, 30);
-
-            String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            date = new JLabel("提交日期");
-            date.setBounds(80, 30+150, 100, 30);
-            date1Filed = new JTextField(today);
-            date1Filed.setFocusable(false);
-            date1Filed.setBounds(80+100, 30+150, 100, 30);
-            date2Filed = new JTextField(today);
-            date2Filed.setFocusable(false);
-            DateChooser dateChooser1 = DateChooser.getInstance("yyyy-MM-dd");
-            dateChooser1.register(date1Filed, true, date2Filed);
-            DateChooser dateChooser2 = DateChooser.getInstance("yyyy-MM-dd");
-            dateChooser2.register(date2Filed, false, date1Filed);
-            date2Filed.setBounds(80+100+200, 30+150, 100, 30);
-
-            ok = new JButton("获取历史");
-            ok.setBounds(50+50, 30+230, 100, 30);
-            ok.addActionListener(new ActionListener() {
+            usernameField = new JTextField("username");
+            usernameField.setBounds(80+100, 30+100, 300, 30);
+            
+            password = new JLabel("密  码");
+            password.setBounds(80, 30+150, 100, 30);
+            passwordField = new JTextField("password");
+            passwordField.setBounds(80+100, 30+150, 160, 30);
+            login = new JButton("登  录");
+            login.setBounds(80+300, 30+150, 100, 30);
+            login.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String cvsroot = cvsrootFiled.getText();
+                    String cvsroot = cvsrootField.getText();
                     if(cvsroot==null || "".equals(cvsroot.trim())){
                         JOptionPane.showMessageDialog(jFrame, "cvsroot信息未填写");
                         return;
                     }
-                    String projectPath = projectPathFiled.getText();
+                    String username = usernameField.getText();
+                    if(username==null || "".equals(username.trim())){
+                        JOptionPane.showMessageDialog(jFrame, "用户名未填写");
+                        return;
+                    }
+                    String password = passwordField.getText();
+                    if(password==null || "".equals(password.trim())){
+                        JOptionPane.showMessageDialog(jFrame, "密码未填写");
+                        return;
+                    }
+                    try {
+                        String s = CvsUtil.loginCvsServer(cvsroot, username, password);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
+
+            String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            date = new JLabel("提交日期");
+            date.setBounds(80, 30+150+50, 100, 30);
+            date1Field = new JTextField(today);
+            date1Field.setFocusable(false);
+            date1Field.setBounds(80+100, 30+150+50, 100, 30);
+            date2Field = new JTextField(today);
+            date2Field.setFocusable(false);
+            DateChooser dateChooser1 = DateChooser.getInstance("yyyy-MM-dd");
+            dateChooser1.register(date1Field, true, date2Field);
+            DateChooser dateChooser2 = DateChooser.getInstance("yyyy-MM-dd");
+            dateChooser2.register(date2Field, false, date1Field);
+            date2Field.setBounds(80+100+200, 30+150+50, 100, 30);
+
+            ok = new JButton("获取历史");
+            ok.setBounds(50+50, 30+230+50, 100, 30);
+            ok.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    String cvsroot = cvsrootField.getText();
+                    if(cvsroot==null || "".equals(cvsroot.trim())){
+                        JOptionPane.showMessageDialog(jFrame, "cvsroot信息未填写");
+                        return;
+                    }
+                    String projectPath = projectPathField.getText();
                     if(projectPath==null || "".equals(projectPath.trim())){
                         JOptionPane.showMessageDialog(jFrame, "projectPath信息未填写");
                         return;
                     }
-                    String username = usernameFiled.getText();
+                    String username = usernameField.getText();
                     if(username==null || "".equals(username.trim())){
                         JOptionPane.showMessageDialog(jFrame, "用户信息未填写");
                         return;
                     }
                     username = username.replaceAll("，", ",");
-                    String date1 = date1Filed.getText();
-                    String date2 = date2Filed.getText();
+                    String date1 = date1Field.getText();
+                    String date2 = date2Field.getText();
 
                     //call the method
                     getCvsHistory(cvsroot, projectPath, username, date1, date2);
                 }
             });
             cancel = new JButton("暂不获取");
-            cancel.setBounds(50+100+200, 30+230, 100, 30);
+            cancel.setBounds(50+100+200, 30+230+50, 100, 30);
             cancel.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -155,26 +192,30 @@ public class PrintCvsListAction extends AnAction implements DumbAwareRunnable {
                 }
             });
 
-            jPopupTextArearFiled = new JPopupTextArear("");
-            jPopupTextArearFiled.setSelectedTextColor(Color.YELLOW);
-            jPopupTextArearFiled.setSelectionColor(Color.GRAY);
-            jPopupTextArearFiled.setSize(FRAME_WIDTH-60, 230);
-            jScrollPane = new JBScrollPane(jPopupTextArearFiled);
+            jPopupTextArearField = new JPopupTextArear("");
+            jPopupTextArearField.setSelectedTextColor(Color.YELLOW);
+            jPopupTextArearField.setSelectionColor(Color.GRAY);
+            jPopupTextArearField.setSize(FRAME_WIDTH-60, 230);
+            jScrollPane = new JBScrollPane(jPopupTextArearField);
             jScrollPane.setVerticalScrollBarPolicy(JBScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            jScrollPane.setBounds(30, 320, FRAME_WIDTH-60, 230);
+            jScrollPane.setBounds(30, 320+50, FRAME_WIDTH-60, 230);
 
             jPanel.add(cvsroot);
-            jPanel.add(cvsrootFiled);
+            jPanel.add(cvsrootField);
 
             jPanel.add(projectPath);
-            jPanel.add(projectPathFiled);
+            jPanel.add(projectPathField);
 
             jPanel.add(username);
-            jPanel.add(usernameFiled);
+            jPanel.add(usernameField);
+
+            jPanel.add(password);
+            jPanel.add(passwordField);
+            jPanel.add(login);
 
             jPanel.add(date);
-            jPanel.add(date1Filed);
-            jPanel.add(date2Filed);
+            jPanel.add(date1Field);
+            jPanel.add(date2Field);
 
             jPanel.add(ok);
             jPanel.add(cancel);
@@ -194,9 +235,9 @@ public class PrintCvsListAction extends AnAction implements DumbAwareRunnable {
                 p.load(is);
                 Iterator it = p.keySet().iterator();
 
-                cvsrootFiled.setText(p.getOrDefault("cvsroot", "cvsroot")+"");
-                projectPathFiled.setText(p.getOrDefault("projectPath", "projectPath")+"");
-                usernameFiled.setText(p.getOrDefault("username", "username")+"");
+                cvsrootField.setText(p.getOrDefault("cvsroot", "cvsroot")+"");
+                projectPathField.setText(p.getOrDefault("projectPath", "projectPath")+"");
+                usernameField.setText(p.getOrDefault("username", "username")+"");
 
                 is.close();
             }
@@ -238,14 +279,14 @@ public class PrintCvsListAction extends AnAction implements DumbAwareRunnable {
             }
             if(noconnected!=null){
                 result = noconnected;
-                jPopupTextArearFiled.setText(result);
+                jPopupTextArearField.setText(result);
                 return;
             }else if(set.size()==0 || norecord){
                 result = date1 + "到" + date2 + "未找到用户["+username+"]的提交记录";
                 if(date1.equals(date2)){
                     result = date1 + "未找到用户["+username+"]的提交记录";
                 }
-                jPopupTextArearFiled.setText(result);
+                jPopupTextArearField.setText(result);
                 return;
             }else{
                 strings = new String[set.size()];
@@ -254,7 +295,7 @@ public class PrintCvsListAction extends AnAction implements DumbAwareRunnable {
                 Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
                 Transferable text = new StringSelection(result);
                 sysClip.setContents(text, null);
-                jPopupTextArearFiled.setText(result);
+                jPopupTextArearField.setText(result);
 
                 //成功后保存信息
                 File propFile = new File(userHome);

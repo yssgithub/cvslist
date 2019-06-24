@@ -13,7 +13,7 @@ public class MyPanel extends JPanel {
     }
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawLine(285, 195, 375, 195);
+        g.drawLine(285, 195+50, 375, 195+50);
 
 
     }

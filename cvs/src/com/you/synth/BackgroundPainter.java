@@ -35,7 +35,7 @@ public class BackgroundPainter extends SynthPainter {
 //		QuadCurve2D.Double qc = new QuadCurve2D.Double(130.0,30.0,150.0,50.0,170.0,20.0);
 //		CubicCurve2D.Double cc = new CubicCurve2D.Double(220.0,40.0,240.0,60.0,260.0,20.0,300.0,35.0);
 //		Rectangle2D.Double rect = new Rectangle2D.Double(10,10,100,100);
-		RoundRectangle2D.Double rRect = new RoundRectangle2D.Double(60,15, 430, 220, 20, 20);
+		RoundRectangle2D.Double rRect = new RoundRectangle2D.Double(60,15, 430, 220+40, 20, 20);
 //		Ellipse2D.Double ellipse1 = new Ellipse2D.Double(-21,168, 100, 100);
 //		Ellipse2D.Double ellipse2 = new Ellipse2D.Double(83,260, 100, 100);
 //		Ellipse2D.Double ellipse3 = new Ellipse2D.Double(158,450, 100, 100);

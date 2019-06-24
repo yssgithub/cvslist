@@ -15,7 +15,7 @@ public class CvsUtil {
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     private static final String OS = System.getProperty("os.name").toLowerCase();
 
-    public static String whereCvs() throws IOException {
+    public static String whereCvs() throws Exception {
         if(OS.indexOf("windows")>=0){
             String result = ProcessUtil.exec("where cvs");
             if("".equals(result)){
@@ -42,7 +42,7 @@ public class CvsUtil {
      * @return
      * @throws IOException
      */
-    public static String commitHistoryFilePath(String cvsroot, String projectPath, String userName, String date) throws IOException {
+    public static String commitHistoryFilePath(String cvsroot, String projectPath, String userName, String date) throws Exception {
         String cvsRoot = ":pserver:"+userName+"@"+cvsroot;
         if(whereCvs()==null){
             return "";
@@ -57,4 +57,19 @@ public class CvsUtil {
         });
     }
 
+    public static String loginCvsServer(String cvsroot, String userName, String password) throws Exception{
+        String cvsRoot = ":pserver:"+userName+"@"+cvsroot;
+        if(whereCvs()==null){
+            return "";
+        }
+        String eee = whereCvs() + " -d " + cvsRoot + " login -p " + password;
+        String exec = ProcessUtil.exec(whereCvs() + " -d " + cvsRoot + " login -p " + password);
+        if(exec!=null && exec.contains("failed")){
+            JOptionPane.showMessageDialog(null, "认证失败：请检查服务器是否可连接，或密码是否正确");
+            return null;
+        }
+
+
+        return null;
+    }
 }

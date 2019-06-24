@@ -11,9 +11,10 @@ public class ProcessUtil {
 		String process(String str);
 	}
 
-	public static String exec(String command, StringProcessor processor) throws IOException {
+	public static String exec(String command, StringProcessor processor) throws Exception {
+		Process process = Runtime.getRuntime().exec(command);
 		BufferedReader br =
-				new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream(), Charset.forName("GBK")));
+				new BufferedReader(new InputStreamReader(process.getInputStream(), Charset.forName("GBK")));
 		String line = null;
 		StringBuilder b = new StringBuilder();
 		while ((line = br.readLine()) != null) {
@@ -24,10 +25,13 @@ public class ProcessUtil {
 		if (b.length() > 0) {
 			b.deleteCharAt(0);
 		}
+//		b.append(process.waitFor());
+        br.close();
+		process.destroy();
 		return b.toString();
 	}
 
-	public static String exec(String command) throws IOException {
+	public static String exec(String command) throws Exception {
 		return exec(command, new StringProcessor() {
             @Override
             public String process(String str) {
