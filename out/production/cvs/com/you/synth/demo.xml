@@ -1,0 +1,210 @@
+<synth>
+
+  <style id="panel">
+	  <object id="background" class="com.you.synth.BackgroundPainter"/>
+	  <object class="javax.swing.plaf.ColorUIResource" id="startColor">
+	    <int>30</int>
+	    <int>123</int>
+	    <int>235</int>
+	  </object>
+	  <defaultsProperty key="Panel.startBackground" type="idref" value="startColor"/>
+	  <object class="javax.swing.plaf.ColorUIResource" id="endColor">
+	    <int>1</int>
+	    <int>20</int>
+	    <int>80</int>
+	  </object>
+	  <defaultsProperty key="Panel.endBackground" type="idref" value="endColor"/>
+     <painter method="panelBackground" idref="background"/>
+  </style>
+  <bind style="panel" type="region" key="Panel"/>
+
+
+  <!--<style id="default">-->
+  		<!--<font name="Aharoni" size="12"/>-->
+  		<!--<state>-->
+  		   <!--<color value="#FFFFFF" type="FOREGROUND"/> -->
+  		<!--</state>-->
+  <!--</style>-->
+  <!--<bind style="default" type="region" key=".*"/>	-->
+  
+
+  <style id="textfield">
+    <state>
+       <font name="Aharoni" size="14"/>
+       <color value="#D2DFF2" type="BACKGROUND"/>
+       <color value="#000000" type="TEXT_FOREGROUND"/>
+    </state>
+    <imagePainter method="textFieldBorder" path="images/textfield.png"
+                  sourceInsets="4 6 4 6" paintCenter="false"/>
+    <insets top="4" left="6" bottom="4" right="6"/>
+  </style>
+  <bind style="textfield" type="region" key="TextField"/>
+    
+  
+  <style id="button">
+      <state>
+	    <imagePainter method="buttonBackground" path="images/button.png"
+	                  sourceInsets="9 10 9 12" paintCenter="true" stretch="true"/>
+	    <insets top="9" left="10" bottom="9" right="12"/>
+	    <font name="Aharoni" size="16"/>
+	    <color type="TEXT_FOREGROUND" value="#FFFFFF"/>
+      </state>
+      <state value="MOUSE_OVER">    
+	    <imagePainter method="buttonBackground" path="images/button_on.png"
+	                  sourceInsets="9 10 9 12" paintCenter="true" stretch="true"/>
+	    <insets top="9" left="10" bottom="9" right="12"/>
+	    <color type="TEXT_FOREGROUND" value="#FFFFFF"/>
+      </state>
+      <state value="PRESSED"> 
+	    <imagePainter method="buttonBackground" path="images/button_press.png"
+	                  sourceInsets="10 12 8 9" paintCenter="true" stretch="true"/>
+	    <insets top="10" left="12" bottom="8" right="9"/>
+	    <color type="TEXT_FOREGROUND" value="#FFFFFF"/>      
+      </state>
+    <property key="Button.margin" type="insets" value="0 0 0 0"/>
+  </style>
+  <bind style="button" type="region" key="Button"/>
+      
+      
+  <style id="checkbox">
+    	<imageIcon id="check_off" path="images/checkbox_off.png"/>
+    	<imageIcon id="check_on" path="images/checkbox_on.png"/>
+      <property key="CheckBox.icon" value="check_off"/>
+      <state value="SELECTED">   
+         <property key="CheckBox.icon" value="check_on"/>
+	  </state>
+  </style>
+  <bind style="checkbox" type="region" key="Checkbox"/>
+
+    <style id="radioButton">
+        <imageIcon id="radio_off" path="images/radio_button_off.png"/>
+        <imageIcon id="radio_on" path="images/radio_button_on.png"/>
+        <property key="RadioButton.icon" value="radio_off"/>
+        <state value="SELECTED">
+            <property key="RadioButton.icon" value="radio_on"/>
+        </state>
+    </style>
+    <bind style="radioButton" type="region" key="RadioButton"/>
+
+
+    <!-- Scroll bar track style -->
+    <!--<style id="scrollBarTrackStyle">-->
+        <!--<state>-->
+            <!--<color value="blue" type="BACKGROUND"/>-->
+            <!--<color value="red" type="FOREGROUND"/>-->
+        <!--</state>-->
+    <!--</style>-->
+    <!--<bind style="scrollBarTrackStyle" type="REGION" key="ScrollBarTrack" />-->
+
+    <!-- Scroll bar thumb style -->
+    <!--<style id="scrollBarThumbStyle">-->
+        <!--<state>-->
+            <!--<color value="gray" type="BACKGROUND"/>-->
+            <!--<color value="yellow" type="FOREGROUND"/>-->
+        <!--</state>-->
+    <!--</style>-->
+    <!--<bind style="scrollBarThumbStyle" type="REGION" key="ScrollBarThumb" />-->
+
+    <!-- Scroll bar style -->
+    <!--<style id="scrollBarStyle">-->
+        <!--<state>-->
+            <!--<color value="blue" type="BACKGROUND"/>-->
+            <!--<color value="red" type="FOREGROUND"/>-->
+        <!--</state>-->
+    <!--</style>-->
+    <!--<bind style="scrollBarStyle" type="REGION" key="ScrollBar" />-->
+
+    <!--<style id="scrollPaneStyle">-->
+        <!--<state>-->
+            <!--<color value="blue" type="BACKGROUND"/>-->
+            <!--<color value="red" type="FOREGROUND"/>-->
+        <!--</state>-->
+    <!--</style>-->
+    <!--<bind style="scrollPaneStyle" type="region" key="ScrollPane" />-->
+
+    <!-- ================================= -->
+
+    <!-- SCROLLBAR ARROWS -->
+
+    <!-- ================================= -->
+
+    <style id="scrollBarArrowStyle">
+        <property key="ArrowButton.size" type="integer" value="21" />
+        <state>
+            <imagePainter method="arrowButtonForeground" path="images/arrow-down.png" center="true" direction="north" />
+            <imagePainter method="arrowButtonForeground" path="images/arrow-up.png" center="true" direction="south" />
+        </state>
+        <!--<state>-->
+            <!--<imagePainter method="arrowButtonForeground" path="images/scrollBar-up.png" center="true" direction="north" />-->
+            <!--<imagePainter method="arrowButtonForeground" path="images/scrollBar-down.png" center="true" direction="south" />-->
+            <!--<imagePainter method="arrowButtonForeground" path="images/scrollBar-left.png" center="true" direction="west" />-->
+            <!--<imagePainter method="arrowButtonForeground" path="images/scrollBar-right.png" center="true" direction="east" />-->
+        <!--</state>-->
+    </style>
+    <bind style="scrollBarArrowStyle" type="REGION" key="ArrowButton" />
+
+
+    <!-- ================================= -->
+
+    <!-- SCROLLBAR THUMB -->
+
+    <!-- ================================= -->
+
+    <style id="scrollBarThumbStyle">
+        <!--<state>-->
+            <!--<color value="gray" type="BACKGROUND"/>-->
+            <!--<color value="yellow" type="FOREGROUND"/>-->
+        <!--</state>-->
+        <state>
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/menu_press.png" sourceInsets="0 7 0 7" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/menu_press.png" center="true" />-->
+            <imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/menu_press.png" sourceInsets="7 0 7 0" />
+            <imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/menu_press.png" center="true" />
+        </state>
+        <state value="MOUSE_OVER">
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/menu_press.png" sourceInsets="0 7 0 7" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/menu_press.png" center="true" />-->
+            <imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/menu_press.png" sourceInsets="7 0 7 0" />
+            <imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/menu_press.png" center="true" />
+        </state>
+
+        <!--<state>-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/scrollBar-thumb-horizontal.png" sourceInsets="0 7 0 7" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/scrollBar-thumb-vertical.png" sourceInsets="7 0 7 0" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/scrollBar-thumb-horizontal-grip.png" center="true" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/scrollBar-thumb-vertical-grip.png" center="true" />-->
+        <!--</state>-->
+        <!--<state value="MOUSE_OVER">-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/scrollBar-thumb-horizontal-mouseover.png" sourceInsets="0 7 0 7" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/scrollBar-thumb-vertical-mouseover.png" sourceInsets="7 0 7 0" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="horizontal" path="images/scrollBar-thumb-horizontal-grip.png" center="true" />-->
+            <!--<imagePainter method="scrollBarThumbBackground" direction="vertical" path="images/scrollBar-thumb-vertical-grip.png" center="true" />-->
+        <!--</state>-->
+        <state value="DISABLED">
+        </state>
+    </style>
+    <bind style="scrollBarThumbStyle" type="REGION" key="ScrollBarThumb" />
+
+
+    <!-- ================================= -->
+
+    <!-- SCROLLBAR TRACK -->
+
+    <!-- ================================= -->
+
+    <style id="scrollbarTrackStyle">
+        <state>
+            <color value="blue" type="BACKGROUND"/>
+            <color value="red" type="FOREGROUND"/>
+        </state>
+        <!--<state>-->
+            <!--<imagePainter method="scrollBarTrackBackground" path="images/scrollBar-track-horizontal.png" direction="horizontal" sourceInsets="0 11 0 11" />-->
+            <!--<imagePainter method="scrollBarTrackBackground" path="images/scrollBar-track-vertical.png" direction="vertical" sourceInsets="11 0 11 0" />-->
+        <!--</state>-->
+        <!--<state value="DISABLED">-->
+            <!--<imagePainter method="scrollBarTrackBackground" path="images/scrollBar-track-horizontal.png" direction="horizontal" sourceInsets="0 11 0 11" />-->
+            <!--<imagePainter method="scrollBarTrackBackground" path="images/scrollBar-track-vertical.png" direction="vertical" sourceInsets="11 0 11 0" />-->
+        <!--</state>-->
+    </style>
+    <bind style="scrollbarTrackStyle" type="REGION" key="ScrollBarTrack" />
+</synth>

@@ -1,0 +1,42 @@
+<idea-plugin>
+  <id>cvshistorylist2</id>
+  <name>Cvs History</name>
+  <version>2.0</version>
+  <vendor email="764802773@qq.com" url="http://www.google.com">姬炀</vendor>
+
+  <description><![CDATA[
+      获取cvs提交清单.<br>
+      <em>须安装cvs客户端软件</em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      功能优化记录:<br>
+      <em>1,默认只获取当天提交清单.</em><br>
+      <em>2,新增两个日期区间内清单,指定两个日期:20170817-20190817.</em><br>
+      <em>3,新增判断是否连接上CVS服务.</em><br>
+      <em>4,解决使用插件锁死IDEA的问题.</em><br>
+      <em>5,右键新增[Cut/剪切、Copy/复制、Paste/黏贴、Select All/选择所有]等功能.</em><br>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="com.you" class="com.you.PrintCvsListAction" text="PrintCvsHistoryList">
+      <add-to-group group-id="WindowMenu" anchor="first"/>
+    </action>
+  </actions>
+
+</idea-plugin>
